@@ -3,41 +3,41 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fs_1 = require("fs");
 class Depth {
     constructor() {
-        this.numArr = [];
         this.getData = () => {
-            this.numArr = (0, fs_1.readFileSync)('./dest/input.txt', { encoding: "utf-8" }).split('\n').map(Number);
+            let sonarSweepReport = (0, fs_1.readFileSync)('./dest/input.txt', { encoding: "utf-8" }).split('\n').map(Number);
+            return sonarSweepReport;
         };
         this.depthMeasurementsPt1 = () => {
-            let increased = 0;
+            let sonarSweepReport = this.getData();
+            let depthIncreased = 0;
             let depth = 0;
-            for (let i = 0; i < this.numArr.length; i++) {
-                depth = this.numArr[i];
-                if (depth < this.numArr[i + 1]) {
-                    depth = this.numArr[i + 1];
-                    increased += 1;
+            for (let i = 0; i < sonarSweepReport.length; i++) {
+                depth = sonarSweepReport[i];
+                if (depth < sonarSweepReport[i + 1]) {
+                    depth = sonarSweepReport[i + 1];
+                    depthIncreased += 1;
                 }
             }
-            console.log(increased);
+            console.log(depthIncreased);
         };
         this.depthMeasurementsPt2 = () => {
-            let increased = 0;
+            let sonarSweepReport = this.getData();
+            let depthIncreased = 0;
             let depth = 0;
-            for (let i = 0; i < this.numArr.length; i++) {
-                depth = this.numArr[i] + this.numArr[i + 1] + this.numArr[i + 2];
-                let change = this.numArr[i + 1] + this.numArr[i + 2] + this.numArr[i + 3];
-                // console.log(`This is depth: ${depth}`)
-                // console.log(`This is change: ${change}`)
+            for (let i = 0; i < sonarSweepReport.length; i++) {
+                depth = sonarSweepReport[i] + sonarSweepReport[i + 1] + sonarSweepReport[i + 2];
+                let change = sonarSweepReport[i + 1] + sonarSweepReport[i + 2] + sonarSweepReport[i + 3];
                 if (depth < change) {
                     console.log(`This is change: ${change}`);
-                    increased += 1;
+                    depthIncreased += 1;
                     change = depth;
                 }
             }
-            console.log(increased);
+            console.log(depthIncreased);
         };
     }
 }
 let depth = new Depth;
 depth.getData();
-// depth.depthMeasurementsPt1()
+depth.depthMeasurementsPt1();
 depth.depthMeasurementsPt2();
