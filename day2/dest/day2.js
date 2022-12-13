@@ -3,22 +3,35 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fs_1 = require("fs");
 class Day2 {
     constructor() {
+        /**
+         *
+         * @returns The data input
+         */
         this.getData = () => {
-            let string = (0, fs_1.readFileSync)('./dest/input.txt', { encoding: 'UTF-8' });
-            return string;
+            const movementInput = (0, fs_1.readFileSync)('./dest/input.txt', { encoding: 'UTF-8' });
+            return movementInput;
         };
+        /**
+         *
+         * @returns the input splitted on 1. direction (forward, up down) and 2. the amount of movement
+         */
         this.splitData = () => {
-            let string = this.getData();
-            let splitString = string.split('\n');
-            return splitString;
+            const movementInput = this.getData();
+            const directionsAndValues = movementInput.split('\n');
+            return directionsAndValues;
         };
+        /**
+         * This method gives the answer.
+         * It sums the values of movements horizontal/vertical and then prints horizontal * vertical
+         *
+         */
         this.multiplyDepthHorizontal = () => {
             let horizontal = 0;
             let vertical = 0;
-            let splitString = this.splitData();
-            for (let i = 0; i < splitString.length; i++) {
-                const movement = splitString[i].split(' ')[0];
-                const number = Number(splitString[i].split(' ')[1]);
+            let directionsAndValues = this.splitData();
+            for (let i = 0; i < directionsAndValues.length; i++) {
+                const movement = directionsAndValues[i].split(' ')[0];
+                const number = Number(directionsAndValues[i].split(' ')[1]);
                 if (movement == 'forward') {
                     horizontal += number;
                 }
@@ -29,16 +42,21 @@ class Day2 {
                     vertical += number;
                 }
             }
-            console.log(horizontal * vertical); // Answer
+            console.log(horizontal * vertical);
         };
+        /**
+         * This method gives the answer.
+         * It sums the values of movements horizontal/vertical converted to aim to get the total depth.
+         * It the prints horizontal value * depth value
+         */
         this.addAim = () => {
             let horizontal = 0;
             let aim = 0;
             let depth = 0;
-            let splitString = this.splitData();
-            for (let i = 0; i < splitString.length; i++) {
-                const movement = splitString[i].split(' ')[0];
-                const number = Number(splitString[i].split(' ')[1]);
+            let directionsAndValues = this.splitData();
+            for (let i = 0; i < directionsAndValues.length; i++) {
+                const movement = directionsAndValues[i].split(' ')[0];
+                const number = Number(directionsAndValues[i].split(' ')[1]);
                 if (movement == 'forward') {
                     horizontal += number;
                     depth += number * aim;
@@ -50,8 +68,6 @@ class Day2 {
                     aim += number;
                 }
             }
-            // console.log(horizontal)
-            // console.log(depth)
             console.log(horizontal * depth); // Answer
         };
     }

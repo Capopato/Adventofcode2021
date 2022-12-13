@@ -1,27 +1,40 @@
 import {readFileSync} from 'fs'
 
 class Day2{
+    /**
+     * 
+     * @returns The data input
+     */
     getData = () => {
-        let string: string = readFileSync('./dest/input.txt', {encoding: 'UTF-8'})
-        return string
+        const movementInput: string = readFileSync('./dest/input.txt', {encoding: 'UTF-8'})
+        return movementInput
     }
 
+    /**
+     * 
+     * @returns the input splitted on 1. direction (forward, up down) and 2. the amount of movement
+     */
     splitData = () => {
-        let string: string = this.getData()
-        let splitString: string[] = string.split('\n')
-        return splitString
+        const movementInput: string = this.getData()
+        const directionsAndValues: string[] = movementInput.split('\n')
+        return directionsAndValues
     }
 
+    /**
+     * This method gives the answer. 
+     * It sums the values of movements horizontal/vertical and then prints horizontal * vertical
+     * 
+     */
     multiplyDepthHorizontal = () => {
         let horizontal: number = 0
         let vertical: number = 0
 
-        let splitString = this.splitData()
+        let directionsAndValues = this.splitData()
 
-        for (let i = 0; i < splitString.length; i++){
+        for (let i = 0; i < directionsAndValues.length; i++){
 
-            const movement: string = splitString[i].split(' ')[0]
-            const number: number = Number(splitString[i].split(' ')[1])
+            const movement: string = directionsAndValues[i].split(' ')[0]
+            const number: number = Number(directionsAndValues[i].split(' ')[1])
 
             if (movement == 'forward'){
                 horizontal += number
@@ -32,21 +45,26 @@ class Day2{
             else if (movement == 'down'){
                 vertical += number
             }
-        }§
-        console.log(horizontal * vertical) // Answer
+        }
+        console.log(horizontal * vertical)
     }
 
+    /**
+     * This method gives the answer. 
+     * It sums the values of movements horizontal/vertical converted to aim to get the total depth.
+     * It the prints horizontal value * depth value
+     */
     addAim = () => {
         let horizontal: number = 0
         let aim: number = 0
         let depth: number = 0
 
-        let splitString = this.splitData()
+        let directionsAndValues = this.splitData()
 
-        for (let i = 0; i < splitString.length; i++){
+        for (let i = 0; i < directionsAndValues.length; i++){
 
-            const movement: string = splitString[i].split(' ')[0]
-            const number: number = Number(splitString[i].split(' ')[1])
+            const movement: string = directionsAndValues[i].split(' ')[0]
+            const number: number = Number(directionsAndValues[i].split(' ')[1])
 
             if (movement == 'forward'){
                 horizontal += number
@@ -59,13 +77,9 @@ class Day2{
                 aim += number
             }
         }
-        // console.log(horizontal)
-        // console.log(depth)
         console.log(horizontal * depth) // Answer
-
     }
 }
-
 
 let day2 = new Day2()
 // day2.getData()
